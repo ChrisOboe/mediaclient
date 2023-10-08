@@ -5,6 +5,7 @@
 #include <QQmlContext>
 #include "mediaclient.h"
 #include "mpvobject.h"
+#include "entry.h"
 
 int main(int argc, char *argv[]) {
     QCoreApplication::setOrganizationName("mediaclient");
@@ -12,11 +13,11 @@ int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
 
-    if (argc != 2 ) {
-        return 1;
-    };
+    //if (argc != 2 ) {
+    //    return 1;
+    //};
 
-    QUrl url(argv[1]);
+    //QUrl url(argv[1]);
 
     QGuiApplication app(argc, argv);
     // Qt sets the locale in the QGuiApplication constructor, but libmpv
@@ -27,8 +28,11 @@ int main(int argc, char *argv[]) {
 
 	qmlRegisterType<MpvObject>("mpv", 1, 0, "MpvObject");
 
-    //Mediaclient m;
-    //engine.rootContext()->setContextProperty("mediaclient", &m);
+    EntryListModel elm;
+    Mediaclient m("http://localhost:8080", &elm);
+
+    engine.rootContext()->setContextProperty("entriesModel", &elm);
+
     engine.load(QUrl(QStringLiteral("qrc:main.qml")));
     return app.exec();
 }

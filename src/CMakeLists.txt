@@ -17,6 +17,8 @@ add_executable(mediaclient
 	mpvobject.h
 	mpvrenderer.cpp
 	mpvrenderer.h
+	entry.cpp
+	entry.h
 	qthelper.hpp
 	${QML_RESOURCE_SRCS})
 
